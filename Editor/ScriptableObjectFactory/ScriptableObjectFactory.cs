@@ -21,7 +21,7 @@ namespace Uli.Extensions
 			foreach (var assembly in assemblies)
 			{
 				//Excludes Unity and Common Assemblies
-				if (assembly.FullName.Contains("Unity") || assembly.FullName.Contains("Sirenix") || assembly.FullName.Contains("DOTween"))
+				if (assembly.FullName.ToLower().Contains("unity") || assembly.FullName.ToLower().Contains("sirenix") || assembly.FullName.ToLower().Contains("dotween"))
 					continue;
 
 				// Get all classes derived from ScriptableObject
