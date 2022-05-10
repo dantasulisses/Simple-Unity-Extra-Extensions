@@ -78,7 +78,7 @@ namespace Uli.Events
             return delegateLookup.ContainsKey(del);
         }
 
-        public void TriggerEvent (GameEvent e) {
+        public void DispatchEvent (GameEvent e) {
             EventDelegate del;
             if (delegates.TryGetValue(e.GetType(), out del)) {
                 del.Invoke(e);
@@ -125,7 +125,7 @@ namespace Uli.Events
                 }
 
                 GameEvent evt = m_eventQueue.Dequeue() as GameEvent;
-                TriggerEvent(evt);
+                DispatchEvent(evt);
 
                 if (LimitQueueProcesing)
                     timer += Time.deltaTime;
