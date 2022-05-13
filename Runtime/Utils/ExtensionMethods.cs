@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Uli.Extensions
 {
-    public static partial class ExtensionMethods
+    public static class ExtensionMethods
     {
         public static TaskAwaiter GetAwaiter(this AsyncOperation asyncOp)
         {
