@@ -10,6 +10,7 @@ namespace Uli.Events
         public bool LimitQueueProcesing = false;
         public float QueueProcessTime = 0.0f;
         private Queue m_eventQueue = new Queue();
+        private List<GameEvent> m_waitingListenersList = new List<GameEvent>();
 
         public delegate void EventDelegate<T> (T e) where T : GameEvent;
         private delegate void EventDelegate (GameEvent e);
@@ -113,13 +114,54 @@ namespace Uli.Events
             return true;
         }
 
+        /// <summary>
+        /// Puts an event in a queue that will wait until there is a listener for it to be triggered
+        /// </summary>
+        /// <param name="evt"></param>
+        /// <returns></returns>
+        public void QueueEventUntilThereIsListener(GameEvent evt)
+        {
+            if (delegates.ContainsKey(evt.GetType()))
+            {
+                DispatchEvent(evt);
+                return;
+            }
+
+            m_waitingListenersList.Add(evt);
+        }
+
         //Every update cycle the queue is processed, if the queue processing is limited,
         //a maximum processing time per update can be set after which the events will have
         //to be processed next update loop.
-        void Update() {
+        void Update() 
+        {
+            CheckWaitingQueue();
+            RunQueue();
+        }
+
+        private void CheckWaitingQueue() 
+        {
+            for (int x = 0; x < m_waitingListenersList.Count; x++) 
+            {
+                GameEvent evt = m_waitingListenersList[x];
+                if (!delegates.ContainsKey(evt.GetType()))
+                {
+                    continue;
+                }
+
+                m_eventQueue.Enqueue(evt);
+                m_waitingListenersList.RemoveAt(x);
+                x--;
+            }
+        }
+
+        private void RunQueue() 
+        {
             float timer = 0.0f;
-            while (m_eventQueue.Count > 0) {
-                if (LimitQueueProcesing) {
+            while (m_eventQueue.Count > 0)
+            {
+                if (LimitQueueProcesing)
+                {
                     if (timer > QueueProcessTime)
                         return;
                 }
@@ -136,6 +178,7 @@ namespace Uli.Events
         { 
             RemoveAll();
             m_eventQueue.Clear();
+            m_waitingListenersList.Clear();
         }
     }
 }
