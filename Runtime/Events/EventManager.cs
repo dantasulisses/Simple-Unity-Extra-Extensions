@@ -69,10 +69,15 @@ namespace Uli.Events
             }
         }
 
-        public void RemoveAll(){
+        public void RemoveAll() {
             delegates.Clear();
             delegateLookup.Clear();
             onceLookups.Clear();
+        }
+
+        public void ClearAllQueues() {
+            m_eventQueue.Clear();
+            m_waitingListenersList.Clear();
         }
 
         public bool HasListener<T> (EventDelegate<T> del) where T : GameEvent {
