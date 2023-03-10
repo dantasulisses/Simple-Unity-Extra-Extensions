@@ -57,6 +57,11 @@ namespace Uli.Extensions
             }
         }
 
+        public static void ClearShutdownFlag() 
+        {
+            m_ShuttingDown = false;
+        }
+
         protected virtual void Awake()
         {
             if (Instance != null && m_Instance != this)
