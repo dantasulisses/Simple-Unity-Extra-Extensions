@@ -68,7 +68,7 @@ namespace Uli.Extensions
                 Destroy(gameObject);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (m_Instance == this)
                 m_ShuttingDown = true;
