@@ -18,7 +18,7 @@ namespace Uli.UI.Components
             Add(newEntry);
             return newEntry;
         }
-        private void Add(GameObject newObject) 
+        protected virtual void Add(GameObject newObject) 
         {
             objects.Add(newObject);
         }
