@@ -9,7 +9,7 @@ namespace Uli.UI.Components
     /// </summary>
     public class UIListHolderComponent : MonoBehaviour
     {
-        private List<GameObject> objects = new List<GameObject>();
+        protected List<GameObject> objects = new List<GameObject>();
 
         public virtual GameObject Spawn(GameObject prefab) 
         {
