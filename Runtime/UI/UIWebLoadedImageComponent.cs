@@ -22,7 +22,7 @@ namespace Uli.UI.Components
         {
             StartCoroutine(Routine_LoadImage(url));
         }
-        public void FillImage(Texture2D texture) 
+        public virtual void FillImage(Texture2D texture) 
         {
             //TODO - Maybe set aspect ratio controls?
             image.texture = texture;

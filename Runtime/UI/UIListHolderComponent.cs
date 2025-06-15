@@ -11,7 +11,7 @@ namespace Uli.UI.Components
     {
         private List<GameObject> objects = new List<GameObject>();
 
-        public GameObject Spawn(GameObject prefab) 
+        public virtual GameObject Spawn(GameObject prefab) 
         {
             //TODO - Maybe use some pooling?
             GameObject newEntry = (GameObject)Instantiate(prefab, this.transform);
@@ -22,7 +22,7 @@ namespace Uli.UI.Components
         {
             objects.Add(newObject);
         }
-        public void Clear() 
+        public virtual void Clear() 
         {
             for (int x = 0; x < this.objects.Count; x++)
             {
